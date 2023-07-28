@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using TaskBookWebApp.Areas.Identity.Data;
 using TaskBookWebApp.Data;
 using TaskBookWebApp.Models;
 
@@ -16,6 +17,12 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<TaskBookDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("TaskBookDBContextConnection")));
+
+builder.Services.AddDbContext<TaskBookWebAppContextOne>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("TaskBookDBContextConnection")));
+
+builder.Services.AddDefaultIdentity<TaskBookWebAppUserOne>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<TaskBookWebAppContextOne>();
 
 
 builder.Services.AddControllers();
@@ -34,10 +41,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.UseAuthentication();;
+app.UseAuthentication();
+app.UseAuthorization();
 app.Run();

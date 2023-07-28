@@ -9,7 +9,6 @@ namespace TaskBookWebApp.Data
         public TaskBookDbContext(DbContextOptions<TaskBookDbContext> options) : base(options) 
         { 
         }
-        public DbSet<UserData> Users { get; set; }
         public DbSet<TaskData> Tasks { get; set; }
     }
 }

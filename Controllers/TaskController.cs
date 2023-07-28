@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using TaskBookWebApp.Data;
 using TaskBookWebApp.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace TaskBookWebApp.Controllers
 {
@@ -18,14 +20,15 @@ namespace TaskBookWebApp.Controllers
         {
             return View();
         }
+
         public IActionResult Success() => View();
 
         public async Task<IActionResult> ViewData()
         {
-            var taskDataList = await (from t in _dbContext.Tasks
-                                      select t).ToListAsync();
+            var taskDataList = await _dbContext.Tasks.ToListAsync();
             return View(taskDataList);
         }
+
         [HttpPost]
         public async Task<IActionResult> StoreData(TaskData model)
         {
@@ -58,7 +61,7 @@ namespace TaskBookWebApp.Controllers
                 {
                     _dbContext.Tasks.Update(model);
                     await _dbContext.SaveChangesAsync();
-                    return RedirectToAction("Success"); 
+                    return RedirectToAction("Success");
                 }
                 catch (DbUpdateConcurrencyException)
                 {

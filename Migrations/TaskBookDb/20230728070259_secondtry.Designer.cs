@@ -9,11 +9,11 @@ using TaskBookWebApp.Data;
 
 #nullable disable
 
-namespace TaskBookWebApp.Migrations
+namespace TaskBookWebApp.Migrations.TaskBookDb
 {
     [DbContext(typeof(TaskBookDbContext))]
-    [Migration("20230725052354_RemovedConnection")]
-    partial class RemovedConnection
+    [Migration("20230728070259_secondtry")]
+    partial class secondtry
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,7 +47,7 @@ namespace TaskBookWebApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Duration")
-                        .HasColumnType("decimal(2,2)");
+                        .HasColumnType("decimal(4,1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -61,31 +61,6 @@ namespace TaskBookWebApp.Migrations
                     b.HasKey("TaskId");
 
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("TaskBookWebApp.Models.UserData", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }
