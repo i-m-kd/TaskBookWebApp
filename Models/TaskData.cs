@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
+using TaskBookWebApp.Areas.Identity.Data;
 
 namespace TaskBookWebApp.Models
 {
@@ -26,9 +26,8 @@ namespace TaskBookWebApp.Models
         [Required]
         public string Status { get; set; }
 
+        //Foreign key reference to the user who created the task
+        public string CreatorId { get; set; }
 
-        private class PrimaryKeyAttribute : Attribute
-        {
-        }
     }
 }

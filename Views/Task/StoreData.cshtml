@@ -11,6 +11,7 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
+
                 <div class="form-group">
                     <label for="textbox1" class="fw-bold">Name</label>
                     <input type="text" class="form-control alphabets-only" placeholder="name of task" required name="Name">
@@ -44,9 +45,7 @@
                         <option value="Completed">Completed</option>
                         <!-- Add more options as needed -->
                     </select>
-
                 </div>
-
                 <div class="btn-toolbar">
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                     <button type="button" class="btn btn-warning" id="clearButton">Clear</button>
@@ -55,6 +54,19 @@
         </div>
     </div>
 </form>
+
+@if (ViewBag.Errors != null && ViewBag.Errors.Count > 0)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewBag.Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
 
 @section Scripts {
     <script src="~/lib/jquery/jquery.min.js"></script>

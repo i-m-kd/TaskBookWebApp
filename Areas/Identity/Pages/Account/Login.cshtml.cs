@@ -20,10 +20,10 @@ namespace TaskBookWebApp.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<TaskBookWebAppUserOne> _signInManager;
+        private readonly SignInManager<TaskBookWebAppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<TaskBookWebAppUserOne> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<TaskBookWebAppUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -104,7 +104,7 @@ namespace TaskBookWebApp.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Action("Login","Home");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 

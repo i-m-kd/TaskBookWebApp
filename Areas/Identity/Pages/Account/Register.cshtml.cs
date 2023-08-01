@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+﻿ // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -24,17 +25,17 @@ namespace TaskBookWebApp.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<TaskBookWebAppUserOne> _signInManager;
-        private readonly UserManager<TaskBookWebAppUserOne> _userManager;
-        private readonly IUserStore<TaskBookWebAppUserOne> _userStore;
-        private readonly IUserEmailStore<TaskBookWebAppUserOne> _emailStore;
+        private readonly SignInManager<TaskBookWebAppUser> _signInManager;
+        private readonly UserManager<TaskBookWebAppUser> _userManager;
+        private readonly IUserStore<TaskBookWebAppUser> _userStore;
+        private readonly IUserEmailStore<TaskBookWebAppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<TaskBookWebAppUserOne> userManager,
-            IUserStore<TaskBookWebAppUserOne> userStore,
-            SignInManager<TaskBookWebAppUserOne> signInManager,
+            UserManager<TaskBookWebAppUser> userManager,
+            IUserStore<TaskBookWebAppUser> userStore,
+            SignInManager<TaskBookWebAppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -72,16 +73,12 @@ namespace TaskBookWebApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(50,ErrorMessage ="Firstname cannot exceed 50 characters")]
-            [Display(Name ="Firstname")]
+            [StringLength(50,ErrorMessage ="Firstname should not exceed 50 characters")]
             public string FirstName { get; set; }
-            [StringLength(50, ErrorMessage = "Lastname cannot exceed 50 characters")]
-            [Display(Name = "Lastname")]
-
-            public String LastName { get; set; }
-            [Range(10,150,ErrorMessage ="Age is not valid")]
-            [Display(Name = "Age")]
-
+            [Required]
+            [StringLength(50, ErrorMessage = "Lastname should not exceed 50 characters")]
+            public string LastName { get; set; }
+            [Required]
             public int Age { get; set; }
 
             /// <summary>
@@ -172,27 +169,27 @@ namespace TaskBookWebApp.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private TaskBookWebAppUserOne CreateUser()
+        private TaskBookWebAppUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<TaskBookWebAppUserOne>();
+                return Activator.CreateInstance<TaskBookWebAppUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(TaskBookWebAppUserOne)}'. " +
-                    $"Ensure that '{nameof(TaskBookWebAppUserOne)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(TaskBookWebAppUser)}'. " +
+                    $"Ensure that '{nameof(TaskBookWebAppUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<TaskBookWebAppUserOne> GetEmailStore()
+        private IUserEmailStore<TaskBookWebAppUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<TaskBookWebAppUserOne>)_userStore;
+            return (IUserEmailStore<TaskBookWebAppUser>)_userStore;
         }
     }
 }

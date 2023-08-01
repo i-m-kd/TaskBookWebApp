@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 namespace TaskBookWebApp.Areas.Identity.Data;
 
 // Add profile data for application users by adding properties to the TaskBookWebAppUser class
-public class TaskBookWebAppUserOne : IdentityUser
+public class TaskBookWebAppUser : IdentityUser
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

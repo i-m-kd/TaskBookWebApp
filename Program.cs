@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
-using TaskBookWebApp.Areas.Identity.Data;
 using TaskBookWebApp.Data;
-using TaskBookWebApp.Models;
+using Microsoft.AspNetCore.Identity;
+using TaskBookWebApp.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("TaskBookDBContextConnection") ?? throw new InvalidOperationException("Connection string 'TaskBookDBContextConnection' not found.");
@@ -18,11 +16,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<TaskBookDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("TaskBookDBContextConnection")));
 
-builder.Services.AddDbContext<TaskBookWebAppContextOne>(options =>
+
+builder.Services.AddDbContext<TaskBookWebAppContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("TaskBookDBContextConnection")));
 
-builder.Services.AddDefaultIdentity<TaskBookWebAppUserOne>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<TaskBookWebAppContextOne>();
+builder.Services.AddDefaultIdentity<TaskBookWebAppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<TaskBookWebAppContext>();
 
 
 builder.Services.AddControllers();

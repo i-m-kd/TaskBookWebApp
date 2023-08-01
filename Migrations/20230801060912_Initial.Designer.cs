@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskBookWebApp.Data;
 
@@ -10,10 +11,12 @@ using TaskBookWebApp.Data;
 
 namespace TaskBookWebApp.Migrations
 {
-    [DbContext(typeof(TaskBookWebAppContextOne))]
-    partial class TaskBookWebAppContextOneModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TaskBookWebAppContext))]
+    [Migration("20230801060912_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +162,7 @@ namespace TaskBookWebApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUserOne", b =>
+            modelBuilder.Entity("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -236,7 +239,7 @@ namespace TaskBookWebApp.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("TaskBookWebAppUser", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -250,7 +253,7 @@ namespace TaskBookWebApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUserOne", null)
+                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -259,7 +262,7 @@ namespace TaskBookWebApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUserOne", null)
+                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -274,7 +277,7 @@ namespace TaskBookWebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUserOne", null)
+                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -283,7 +286,7 @@ namespace TaskBookWebApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUserOne", null)
+                    b.HasOne("TaskBookWebApp.Areas.Identity.Data.TaskBookWebAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

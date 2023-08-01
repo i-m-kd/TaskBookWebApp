@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using TaskBookWebApp.Areas.Identity.Data
 
-@inject SignInManager<TaskBookWebAppUserOne> SignInManager
-@inject UserManager<TaskBookWebAppUserOne> UserManager
+@inject SignInManager<TaskBookWebAppUser> SignInManager
+@inject UserManager<TaskBookWebAppUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
