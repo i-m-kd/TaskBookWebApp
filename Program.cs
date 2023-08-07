@@ -7,21 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("TaskBookDBContextConnection") ?? throw new InvalidOperationException("Connection string 'TaskBookDBContextConnection' not found.");
 
 
+builder.Services.AddScoped(_ => new ConnectionHelper(connectionString));
 
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<TaskBookDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("TaskBookDBContextConnection")));
-
-
 builder.Services.AddDbContext<TaskBookWebAppContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("TaskBookDBContextConnection")));
 
 builder.Services.AddDefaultIdentity<TaskBookWebAppUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<TaskBookWebAppContext>();
+
+builder.Services.AddScoped<UserManager<TaskBookWebAppUser>>();
+builder.Services.AddAuthentication();
 
 
 builder.Services.AddControllers();
@@ -45,6 +45,7 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.Run();

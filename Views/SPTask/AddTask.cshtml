@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@{
+    ViewData["Title"] = "Task";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="col-md-6 mx-auto text-center">
+                <h1>Task</h1>
+                <p>Add your tasks in this page</p>
+            </div>
+            <form id="taskForm" method="post" asp-controller="SPTask" asp-action="AddTask">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Name of Task</label>
+                    <input type="text" class="form-control alphabets-only" name="Name" placeholder="Wash Dishes" required>
+                    <small class="text-danger error-message">Only alphabets are allowed.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Assigned By</label>
+                    <input type="text" class="form-control alphabets-only" name="AssignedBy" placeholder="Mom" required>
+                    <small class="text-danger error-message">Only alphabets are allowed.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1"> Assigned To</label>
+                    <input type="text" class="form-control alphabets-only" name="AssignedTo" placeholder="Dad" required>
+                    <small class="text-danger error-message">Only alphabets are allowed.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Duration</label>
+                    <input type="text" class="form-control" name="Duration" placeholder="2.5" pattern="^\d+(\.\d{1,2})?$" title="Enter a decimal value with up to 2 decimal places" required>
+                    <small class="text-danger error-message">Enter a valid decimal value with up to 2 decimal places.</small>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="exampleFormControlInput1">Date</label>
+                    <input type="date" class="form-control" name="Date" required>
+                </div>
+                <div>
+                    <input type="hidden" name="UserId" value="@Model.UserId" />
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="button" id="clearButton" class="btn btn-warning">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

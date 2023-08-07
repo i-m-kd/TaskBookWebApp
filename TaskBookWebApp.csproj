@@ -8,6 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\TaskBookDb\**" />
+    <Compile Remove="Views\Task\**" />
+    <Content Remove="Migrations\TaskBookDb\**" />
+    <Content Remove="Views\Task\**" />
+    <EmbeddedResource Remove="Migrations\TaskBookDb\**" />
+    <EmbeddedResource Remove="Views\Task\**" />
+    <None Remove="Migrations\TaskBookDb\**" />
+    <None Remove="Views\Task\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\TaskController.cs" />
+    <Compile Remove="Data\TaskBookDbContext.cs" />
+    <Compile Remove="Models\TaskData.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
@@ -21,9 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Data\" />
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
